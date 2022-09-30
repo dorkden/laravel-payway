@@ -1,0 +1,41 @@
+{
+  "name": "dorkden/laravel-payway",
+  "description": "Laravel Payway payment gateway.",
+  "keywords": [
+    "ABA Bank",
+    "Payway",
+    "Cambodia online payment gateway"
+  ],
+  "homepage": "https://github.com/dorkden/laravel-payway",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dork Den",
+      "email": "dorkden@outlook.com"
+    }
+  ],
+  "require": {
+    "php": "^7.2|^8.0|^8.1",
+    "illuminate/support": "~6|~7|~8|~9",
+    "guzzlehttp/guzzle": "~6|~7|~8|~9"
+  },
+  "autoload": {
+    "files": [
+      "src/Support/helpers.php"
+    ],
+    "psr-4": {
+      "Dorkden\\Payway\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dorkden\\Payway\\PaywayServiceProvider"
+      ],
+      "aliases": {
+        "Payway": "Dorkden\\Payway\\Facades\\Payway"
+      }
+    }
+  },
+  "minimum-stability": "dev"
+}
