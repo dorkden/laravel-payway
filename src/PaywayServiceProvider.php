@@ -14,11 +14,8 @@ class PaywayServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $config = realpath(__DIR__ . '/../config/payway.php');
 
-        $this->publishes([
-            $config => config_path('payway.php')
-        ]);
+        $this->registerPublishing();
     }
 
     /**
@@ -28,13 +25,37 @@ class PaywayServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('laravel-payway', function () {
-            return new Payway;
-        });
+        $this->configure();
     }
 
     public function provides()
     {
         return ["laravel-payway"];
+    }
+
+    /**
+     * Setup the configuration for Cashier.
+     *
+     * @return void
+     */
+    protected function configure()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/payway.php', 'payway'
+        );
+    }
+
+    /**
+     * Register the package's publishable resources.
+     *
+     * @return void
+     */
+    protected function registerPublishing()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/payway.php' => $this->app->configPath('payway.php'),
+            ], 'payway-config');
+        }
     }
 }
